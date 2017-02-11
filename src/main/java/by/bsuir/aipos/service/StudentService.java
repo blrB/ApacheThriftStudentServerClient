@@ -4,9 +4,6 @@ import by.bsuir.aipos.model.Student;
 
 import java.util.List;
 
-/**
- * Created by andrey on 10/02/17.
- */
 public interface StudentService{
 
     public Student save(Student student);

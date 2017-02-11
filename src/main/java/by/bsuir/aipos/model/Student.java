@@ -21,7 +21,7 @@ public class Student {
     private String lastName;
 
     @Column()
-    private String midleName;
+    private String middleName;
 
     @Column(nullable = false)
     @Type(type="date")
@@ -44,10 +44,10 @@ public class Student {
         this.studentGroup = studentGroup;
     }
 
-    public Student(String firstName, String lastName, String midleName, Date dateOfBirth, String homeAddress, StudentGroup studentGroup) {
+    public Student(String firstName, String lastName, String middleName, Date dateOfBirth, String homeAddress, StudentGroup studentGroup) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.midleName = midleName;
+        this.middleName = middleName;
         this.dateOfBirth = dateOfBirth;
         this.homeAddress = homeAddress;
         this.studentGroup = studentGroup;
@@ -77,12 +77,12 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public String getMidleName() {
-        return midleName;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setMidleName(String midleName) {
-        this.midleName = midleName;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public Date getDateOfBirth() {
@@ -115,7 +115,7 @@ public class Student {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", midleName='" + midleName + '\'' +
+                ", middleName='" + middleName + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", homeAddress='" + homeAddress + '\'' +
                 ", studentGroup=" + studentGroup +

@@ -4,9 +4,6 @@ import by.bsuir.aipos.model.StudentGroup;
 
 import java.util.List;
 
-/**
- * Created by andrey on 10/02/17.
- */
 public interface StudentGroupService {
 
     public StudentGroup save(StudentGroup studentGroup);
