@@ -15,13 +15,6 @@ public class ServiceTest {
 
     private StudentGroupService studentGroupService = new StudentGroupServiceImpl();
     private StudentService studentService = new StudentServiceImpl();
-/*
-    @Before
-    public void initialize() {
-        studentGroupService.getAll();
-        studentService.getAll();
-    }
-
 
     @Test
     public void testCreateGroup(){
@@ -54,5 +47,5 @@ public class ServiceTest {
                 studentGroupService.get("421702"));
         studentService.save(student);
         assert(studentService.getAll().size() == 1);
-    }*/
+    }
 }
