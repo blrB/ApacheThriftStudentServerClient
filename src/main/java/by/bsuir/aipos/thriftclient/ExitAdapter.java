@@ -15,7 +15,7 @@ public class ExitAdapter extends WindowAdapter {
     @Override
     public void windowClosing(WindowEvent e) {
         int confirm = JOptionPane.showOptionDialog(
-                null, "Are You Sure to Close Game?",
+                null, "Are you sure to close?",
                 "Exit Confirmation", JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, null, null);
         if (confirm == 0) {

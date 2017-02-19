@@ -4,6 +4,7 @@ import by.bsuir.aipos.service.StudentGroupService;
 import by.bsuir.aipos.service.StudentGroupServiceImpl;
 import by.bsuir.aipos.service.StudentService;
 import by.bsuir.aipos.service.StudentServiceImpl;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.text.ParseException;
@@ -14,6 +15,13 @@ public class ServiceTest {
 
     private StudentGroupService studentGroupService = new StudentGroupServiceImpl();
     private StudentService studentService = new StudentServiceImpl();
+/*
+    @Before
+    public void initialize() {
+        studentGroupService.getAll();
+        studentService.getAll();
+    }
+
 
     @Test
     public void testCreateGroup(){
@@ -27,9 +35,9 @@ public class ServiceTest {
         StudentGroup studentGroup = new StudentGroup("421700");
         studentGroupService.save(studentGroup);
         studentGroup = studentGroupService.get("421700");
-        studentGroup.setName("421702");
+        studentGroup.setName("521701");
         studentGroupService.save(studentGroup);
-        assert(studentGroupService.get("421702") != null);
+        assert(studentGroupService.get("521701") != null);
     }
 
     @Test
@@ -46,5 +54,5 @@ public class ServiceTest {
                 studentGroupService.get("421702"));
         studentService.save(student);
         assert(studentService.getAll().size() == 1);
-    }
+    }*/
 }

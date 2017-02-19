@@ -13,11 +13,7 @@ public class StudentGroupServiceImpl implements StudentGroupService {
 
     public StudentGroup save(StudentGroup studentGroup){
         em.getTransaction().begin();
-        if (studentGroup.getId() > 0){
-            em.persist(studentGroup);
-        } else {
-            em.merge(studentGroup);
-        }
+        em.merge(studentGroup);
         em.getTransaction().commit();
         return studentGroup;
     }

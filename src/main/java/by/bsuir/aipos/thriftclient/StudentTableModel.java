@@ -16,10 +16,10 @@ public class StudentTableModel implements TableModel {
     public final static int ADDRESS = 4;
     public final static int GROUP = 5;
     private static final int COLUMN_COUNT = 6;
-    private final static String FIRST_NAME_COLUMN = "FIRST_NAME";
-    private final static String LAST_NAME_COLUMN = "LAST_NAME";
-    private final static String MIDDLE_NAME_COLUMN = "MIDDLE_NAME";
-    private final static String DATE_OF_BIRTH_COLUMN = "DATE_OF_BIRTH";
+    private final static String FIRST_NAME_COLUMN = "FIRST NAME";
+    private final static String LAST_NAME_COLUMN = "LAST NAME";
+    private final static String MIDDLE_NAME_COLUMN = "MIDDLE NAME";
+    private final static String DATE_OF_BIRTH_COLUMN = "DATE OF BIRTH";
     private final static String ADDRESS_COLUMN = "ADDRESS";
     private final static String GROUP_COLUMN = "GROUP";
     private List<StudentThrift> students;

@@ -3,28 +3,28 @@ package by.bsuir.aipos.thriftclient;
 import by.bsuir.aipos.thriftlib.StudentGroupThrift;
 import by.bsuir.aipos.thriftlib.StudentThrift;
 import by.bsuir.aipos.thriftlib.StudentThriftService;
-import org.apache.log4j.Logger;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TTransportException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentClient extends Thread implements StudentThriftService.Iface{
 
+    private final MainWindow mainWindow;
     private TTransport transport;
     private StudentThriftService.Client client;
     private int port;
     private String host;
 
-    public StudentClient(String host, int port) {
+    public StudentClient(String host, int port, MainWindow mainWindow) {
         this.host = host;
         this.port = port;
+        this.mainWindow = mainWindow;
     }
 
     public void run() {
@@ -34,9 +34,11 @@ public class StudentClient extends Thread implements StudentThriftService.Iface{
             TProtocol protocol = new TBinaryProtocol(transport);
             client = new StudentThriftService.Client(protocol);
             transport.open();
+            mainWindow.updateTable();
         } catch (TException e) {
             MainWindow.logger.error("Error in StudentClient run() ");
             MainWindow.logger.trace(e);
+            System.exit(-1);
         }
     }
 
@@ -51,7 +53,7 @@ public class StudentClient extends Thread implements StudentThriftService.Iface{
     }
 
     @Override
-    public StudentThrift saveStudent(StudentThrift studentThrift) throws TException {
+    public StudentThrift saveStudent(StudentThrift studentThrift) {
         try {
             studentThrift = client.saveStudent(studentThrift);
         } catch (TException e) {
@@ -62,7 +64,7 @@ public class StudentClient extends Thread implements StudentThriftService.Iface{
     }
 
     @Override
-    public StudentThrift getStudent(long id) throws TException {
+    public StudentThrift getStudent(long id) {
         StudentThrift studentThrift = new StudentThrift();
         try {
             studentThrift = client.getStudent(id);
@@ -74,7 +76,7 @@ public class StudentClient extends Thread implements StudentThriftService.Iface{
     }
 
     @Override
-    public void deleteStudent(long id) throws TException {
+    public void deleteStudent(long id) {
         try {
             client.deleteStudent(id);
         } catch (TException e) {
@@ -96,7 +98,7 @@ public class StudentClient extends Thread implements StudentThriftService.Iface{
     }
 
     @Override
-    public StudentGroupThrift saveStudentGroup(StudentGroupThrift studentGroupThrift) throws TException {
+    public StudentGroupThrift saveStudentGroup(StudentGroupThrift studentGroupThrift) {
         try {
             studentGroupThrift = client.saveStudentGroup(studentGroupThrift);
         } catch (TException e) {
@@ -107,7 +109,7 @@ public class StudentClient extends Thread implements StudentThriftService.Iface{
     }
 
     @Override
-    public StudentGroupThrift getStudentGroup(long id) throws TException {
+    public StudentGroupThrift getStudentGroup(long id) {
         StudentGroupThrift studentGroupThrift = new StudentGroupThrift();
         try {
             studentGroupThrift = client.getStudentGroup(id);
@@ -119,7 +121,7 @@ public class StudentClient extends Thread implements StudentThriftService.Iface{
     }
 
     @Override
-    public StudentGroupThrift getStudentGroupByName(String name) throws TException {
+    public StudentGroupThrift getStudentGroupByName(String name) {
         StudentGroupThrift studentGroupThrift = new StudentGroupThrift();
         try {
             studentGroupThrift = client.getStudentGroupByName(name);
@@ -131,7 +133,7 @@ public class StudentClient extends Thread implements StudentThriftService.Iface{
     }
 
     @Override
-    public void deleteStudentGroup(long id) throws TException {
+    public void deleteStudentGroup(long id) {
         try {
             client.deleteStudentGroup(id);
         } catch (TException e) {
@@ -141,7 +143,7 @@ public class StudentClient extends Thread implements StudentThriftService.Iface{
     }
 
     @Override
-    public List<StudentGroupThrift> getAllStudentGroup() throws TException {
+    public List<StudentGroupThrift> getAllStudentGroup() {
         List<StudentGroupThrift> studentGroupThrifts = new ArrayList<>();
         try {
             studentGroupThrifts = client.getAllStudentGroup();

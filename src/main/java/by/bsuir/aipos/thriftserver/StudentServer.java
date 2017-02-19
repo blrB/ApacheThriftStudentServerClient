@@ -18,9 +18,18 @@ public class StudentServer {
     private static Logger logger = Logger.getLogger(StudentServer.class);
     private static StudentGroupService studentGroupService = new StudentGroupServiceImpl();
     private static StudentService studentService = new StudentServiceImpl();
-    private static final int PORT = 8080;
+    private static final int DEFAULT_PORT = 8080;
+    private static int port = DEFAULT_PORT;
 
     public static void main(String[] args) {
+        if (args.length > 0) {
+            try {
+                port = Integer.parseInt(args[0]);
+            } catch (NumberFormatException e) {
+                logger.error("Argument" + args[0] + " must be an integer.");
+                System.exit(1);
+            }
+        }
         StudentServer studentServer = new StudentServer();
         studentServer.start();
     }
@@ -28,13 +37,13 @@ public class StudentServer {
     private void start() {
         startServer();
         try {
-            TNonblockingServerTransport serverTransport = new TNonblockingServerSocket(PORT);
+            TNonblockingServerTransport serverTransport = new TNonblockingServerSocket(port);
             StudentThriftService.Processor processor =
                     new StudentThriftService.Processor(new StudentThriftServiceImpl());
 
             TServer server = new TNonblockingServer(new TNonblockingServer.Args(serverTransport).
                     processor(processor));
-            logger.info("Starting server on port " + PORT );
+            logger.info("Starting server on port " + port);
             server.serve();
         } catch (TTransportException e) {
             e.printStackTrace();

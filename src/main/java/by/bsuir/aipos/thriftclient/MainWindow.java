@@ -2,19 +2,10 @@ package by.bsuir.aipos.thriftclient;
 
 import by.bsuir.aipos.thriftlib.StudentGroupThrift;
 import by.bsuir.aipos.thriftlib.StudentThrift;
-import by.bsuir.aipos.thriftlib.StudentThriftService;
 import org.apache.log4j.Logger;
-import org.apache.thrift.TException;
-import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TProtocol;
-import org.apache.thrift.transport.TFramedTransport;
-import org.apache.thrift.transport.TSocket;
-import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TTransportException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -33,62 +24,82 @@ public class MainWindow {
     public MainWindow() {
         studentThrifts = new ArrayList<>();
         frame = new JFrame("Thrifts Student Client");
-        frame.setLayout(new BorderLayout());
         host = getHost();
         port = getPort();
+        frame.setLayout(new BorderLayout());
         frame.add(createToolBar(), BorderLayout.NORTH);
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new ExitAdapter(this));
-        frame.setVisible(true);
         studentTable = new StudentTable(this);
         frame.add(studentTable, BorderLayout.CENTER);
+        frame.setVisible(true);
     }
 
     private JToolBar createToolBar() {
         JToolBar toolBar = new JToolBar();
         toolBar.setFloatable(false);
-        toolBar.add(makeButton(new JButton(), "UPDATE.png", actionEvent -> updateTable()));
+        toolBar.add(AddComponent.makeButton(new JButton(), "UPDATE.png", actionEvent -> updateTable()));
         toolBar.addSeparator();
-        toolBar.add(makeButton(new JButton(), "ADD.png", actionEvent -> addStudent()));
-        toolBar.add(makeButton(new JButton(), "EDIT.png", actionEvent -> editStudent()));
-        toolBar.add(makeButton(new JButton(), "DELETE.png", actionEvent -> removeStudent()));
+        toolBar.add(AddComponent.makeButton(new JButton(), "ADD.png", actionEvent -> addStudent()));
+        toolBar.add(AddComponent.makeButton(new JButton(), "EDIT.png", actionEvent -> editStudent()));
+        toolBar.add(AddComponent.makeButton(new JButton(), "DELETE.png", actionEvent -> removeStudent()));
         return toolBar;
     }
 
-    private void updateTable(){
+    public void updateTable(){
         logger.info("Update table");
         studentTable.updatePanel();
     }
 
     private void addStudent(){
         logger.info("Add new student");
+        StudentDialog dialog = new StudentDialog(this, "Add new Student");
+        dialog.show();
         updateTable();
     }
 
     private void editStudent(){
-        logger.info("Edit student");
-        updateTable();
+        StudentThrift studentThrift = studentTable.getSelectedStudent();
+        if (studentThrift != null) {
+            logger.info("Edit student");
+            StudentDialog dialog = new StudentDialog(this, "Edit Student");
+            dialog.setField(studentThrift);
+            dialog.show();
+            updateTable();
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Select student in table!",
+                    "Not valid",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void removeStudent(){
-        logger.info("Remove student");
-        updateTable();
-    }
-
-    private JButton makeButton(JButton button, String imgName, ActionListener action){
-        button.addActionListener(action);
-        String patch = "img/" + imgName;
-        ImageIcon img = new ImageIcon(patch);
-        button.setIcon(img);
-        return button;
+        StudentThrift studentThrift = studentTable.getSelectedStudent();
+        if (studentThrift != null) {
+            logger.info("Remove student");
+            int confirm = JOptionPane.showOptionDialog(
+                    null, "Are You Sure to delete student " + studentThrift.getLastName() + "?",
+                    "Exit Confirmation", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE, null, null, null);
+            if (confirm == 0) {
+                getStudentClient().deleteStudent(studentThrift.getId());
+                updateTable();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Select student in table!",
+                    "Not valid",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private String getHost() {
         Pattern host = Pattern.compile("((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])");
         do {
             this.host = (String) JOptionPane.showInputDialog(
-                    frame,
+                    null,
                     "Enter IP Address of the Server:",
                     "Welcome to the Citadels",
                     JOptionPane.QUESTION_MESSAGE,
@@ -108,7 +119,7 @@ public class MainWindow {
         int maxPort = 65535;
         do {
             port = Integer.parseInt((String) JOptionPane.showInputDialog(
-                    frame,
+                    null,
                     "Choose a port:",
                     "Port selection",
                     JOptionPane.PLAIN_MESSAGE,
@@ -129,7 +140,7 @@ public class MainWindow {
     }
 
     private void runClient(){
-        studentClient = new StudentClient(host, port);
+        studentClient = new StudentClient(host, port, this);
         studentClient.start();
     }
 
@@ -139,5 +150,9 @@ public class MainWindow {
 
     public StudentClient getStudentClient() {
         return studentClient;
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 }

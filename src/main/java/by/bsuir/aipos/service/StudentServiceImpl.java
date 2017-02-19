@@ -13,11 +13,7 @@ public class StudentServiceImpl implements StudentService{
 
     public Student save(Student student){
         em.getTransaction().begin();
-        if (student.getId() > 0) {
-            em.persist(student);
-        } else {
-            em.merge(student);
-        }
+        em.merge(student);
         em.getTransaction().commit();
         return student;
     }

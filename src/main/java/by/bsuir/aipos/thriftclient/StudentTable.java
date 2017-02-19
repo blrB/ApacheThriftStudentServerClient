@@ -41,6 +41,9 @@ public class StudentTable extends JComponent {
     }
 
     public StudentThrift getSelectedStudent(){
+        if (table.getSelectedRow() < 0){
+            return null;
+        }
         return listOfStudent.get(table.getSelectedRow());
     }
 }
