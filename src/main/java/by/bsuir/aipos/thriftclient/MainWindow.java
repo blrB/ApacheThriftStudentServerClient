@@ -101,7 +101,7 @@ public class MainWindow {
             this.host = (String) JOptionPane.showInputDialog(
                     null,
                     "Enter IP Address of the Server:",
-                    "Welcome to the Citadels",
+                    "Welcome to StudentThriftClient",
                     JOptionPane.QUESTION_MESSAGE,
                     null,
                     null,
@@ -121,7 +121,7 @@ public class MainWindow {
             port = Integer.parseInt((String) JOptionPane.showInputDialog(
                     null,
                     "Choose a port:",
-                    "Port selection",
+                    "Port chooser",
                     JOptionPane.PLAIN_MESSAGE,
                     null,
                     null,
