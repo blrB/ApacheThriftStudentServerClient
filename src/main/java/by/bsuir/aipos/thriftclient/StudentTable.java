@@ -25,7 +25,7 @@ public class StudentTable extends JComponent {
 
     public void createPanel() {
         listOfStudent = mainWindow.getStudentClient().getAllStudent();
-        StudentTableModel model = new StudentTableModel(listOfStudent, mainWindow);
+        StudentTableModel model = new StudentTableModel(listOfStudent);
         table = new JTable(model);
         scrollPane = new JScrollPane(table);
         scrollPane.getHorizontalScrollBar().addAdjustmentListener(evt -> updateScrollPane());

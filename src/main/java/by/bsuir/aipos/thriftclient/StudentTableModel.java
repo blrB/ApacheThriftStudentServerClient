@@ -9,12 +9,12 @@ import java.util.StringJoiner;
 
 public class StudentTableModel implements TableModel {
 
-    public final static int FIRST_NAME = 0;
-    public final static int LAST_NAME = 1;
-    public final static int MIDDLE_NAME = 2;
-    public final static int DATE_OF_BIRTH = 3;
-    public final static int ADDRESS = 4;
-    public final static int GROUP = 5;
+    private final static int FIRST_NAME = 0;
+    private final static int LAST_NAME = 1;
+    private final static int MIDDLE_NAME = 2;
+    private final static int DATE_OF_BIRTH = 3;
+    private final static int ADDRESS = 4;
+    private final static int GROUP = 5;
     private static final int COLUMN_COUNT = 6;
     private final static String FIRST_NAME_COLUMN = "FIRST NAME";
     private final static String LAST_NAME_COLUMN = "LAST NAME";
@@ -24,7 +24,7 @@ public class StudentTableModel implements TableModel {
     private final static String GROUP_COLUMN = "GROUP";
     private List<StudentThrift> students;
 
-    public StudentTableModel(List<StudentThrift> students, MainWindow mainWindow) {
+    public StudentTableModel(List<StudentThrift> students) {
         this.students = students;
     }
 

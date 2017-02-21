@@ -18,11 +18,8 @@ public class MainWindow {
     private int port;
     private StudentClient studentClient;
     private StudentTable studentTable;
-    private List<StudentThrift> studentThrifts;
-    private List<StudentGroupThrift> studentGroupThrifts;
 
     public MainWindow() {
-        studentThrifts = new ArrayList<>();
         frame = new JFrame("Thrifts Student Client");
         host = getHost();
         port = getPort();
