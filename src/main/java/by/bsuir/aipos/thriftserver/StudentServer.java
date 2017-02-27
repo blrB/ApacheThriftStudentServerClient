@@ -21,6 +21,11 @@ public class StudentServer {
     private static final int DEFAULT_PORT = 8080;
     private static int port = DEFAULT_PORT;
 
+    public StudentServer() {
+        studentGroupService = new StudentGroupServiceImpl();
+        studentService = new StudentServiceImpl();
+    }
+
     public static void main(String[] args) {
         if (args.length > 0) {
             try {
@@ -55,16 +60,10 @@ public class StudentServer {
     }
 
     public static StudentGroupService getStudentGroupService() {
-        if (studentGroupService == null){
-            studentGroupService = new StudentGroupServiceImpl();
-        }
         return studentGroupService;
     }
 
     public static StudentService getStudentService() {
-        if (studentService == null){
-            studentService = new StudentServiceImpl();
-        }
         return studentService;
     }
 
