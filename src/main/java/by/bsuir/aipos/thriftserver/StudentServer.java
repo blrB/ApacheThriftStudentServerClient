@@ -14,13 +14,31 @@ import org.apache.thrift.transport.TNonblockingServerTransport;
 import org.apache.thrift.transport.TTransportException;
 
 public class StudentServer {
-
+    /**
+     * Logger for server
+     */
     private static Logger logger = Logger.getLogger(StudentServer.class);
+    /**
+     * Student group service
+     */
     private static StudentGroupService studentGroupService = new StudentGroupServiceImpl();
+    /**
+     * Student service
+     */
     private static StudentService studentService = new StudentServiceImpl();
+    /**
+     * Constant for default server's port
+     */
     private static final int DEFAULT_PORT = 8080;
+    /**
+     * Initialize port by default value
+     */
     private static int port = DEFAULT_PORT;
 
+    /**
+     * Server runner
+     * @param args the only sent argument is server's port
+     */
     public static void main(String[] args) {
         if (args.length > 0) {
             try {
@@ -34,6 +52,9 @@ public class StudentServer {
         studentServer.start();
     }
 
+    /**
+     * Run server
+     */
     private void start() {
         startServer();
         try {
@@ -50,18 +71,33 @@ public class StudentServer {
         }
     }
 
+    /**
+     * Return logger
+     * @return logger
+     */
     public static Logger getLogger() {
         return logger;
     }
 
+    /**
+     * Return student group service
+     * @return student group service
+     */
     public static StudentGroupService getStudentGroupService() {
         return studentGroupService;
     }
 
+    /**
+     * Return student service
+     * @return student service
+     */
     public static StudentService getStudentService() {
         return studentService;
     }
 
+    /**
+     * Write amazing text in a console
+     */
     private void startServer(){
         logger.info("Start server\n" +
                 "                            _            _______ _          _  __ _   \n" +

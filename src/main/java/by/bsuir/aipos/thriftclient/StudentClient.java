@@ -14,19 +14,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentClient extends Thread implements StudentThriftService.Iface{
-
+    /**
+     * Instance of main window
+     */
     private final MainWindow mainWindow;
     private TTransport transport;
+    /**
+     * Thrift client
+     */
     private StudentThriftService.Client client;
+    /**
+     * Server's port
+     */
     private int port;
+    /**
+     * Server's host address
+     */
     private String host;
 
+    /**
+     * Create StudentClient by setting port, host and main window
+     *
+     * @param host       server's host address
+     * @param port       server's port number
+     * @param mainWindow instance of main window
+     */
     public StudentClient(String host, int port, MainWindow mainWindow) {
         this.host = host;
         this.port = port;
         this.mainWindow = mainWindow;
     }
 
+    /**
+     * Create connection
+     */
     public void run() {
         MainWindow.logger.info("Start client");
         try {
@@ -42,6 +63,9 @@ public class StudentClient extends Thread implements StudentThriftService.Iface{
         }
     }
 
+    /**
+     * Close connection
+     */
     public void transportClose(){
         try {
             transport.close();

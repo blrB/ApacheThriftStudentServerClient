@@ -11,7 +11,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ConverterForStudentThriftAndORM {
-
+    /**
+     * Convert student model to student thrift model
+     * @param student student model to convert
+     * @return result of conversion - student thrift model
+     */
     public static StudentThrift convert(Student student) {
         StudentThrift studentThrift = new StudentThrift();
         if(student.getId() != 0) {
@@ -33,6 +37,12 @@ public class ConverterForStudentThriftAndORM {
         return studentThrift;
     }
 
+    /**
+     * Convert student group to thrift student group
+     *
+     * @param studentGroup student group to convert
+     * @return result of conversion - thrift student group
+     */
     public static StudentGroupThrift convert(StudentGroup studentGroup){
         StudentGroupThrift studentGroupThrift = new StudentGroupThrift();
         if(studentGroup.getId() != 0) {
@@ -42,6 +52,11 @@ public class ConverterForStudentThriftAndORM {
         return studentGroupThrift;
     }
 
+    /**
+     * Convert thrift student to student
+     * @param studentThrift thrift student to convert
+     * @return result of conversion - student
+     */
     public static Student convert(StudentThrift studentThrift) {
         Student student = new Student();
         if(studentThrift.getId() != 0) {
@@ -70,6 +85,11 @@ public class ConverterForStudentThriftAndORM {
         return student;
     }
 
+    /**
+     * Convert thrift student group to student group
+     * @param studentGroupThrift - thrift student group to convert
+     * @return result of conversion student group
+     */
     public static StudentGroup convert(StudentGroupThrift studentGroupThrift){
         StudentGroup studentGroup = new StudentGroup();
         if(studentGroupThrift.getId() != 0) {

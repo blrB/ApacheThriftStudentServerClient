@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class StudentTableModel implements TableModel {
-
+    /**
+     * Constants for table columns
+     */
     private final static int FIRST_NAME = 0;
     private final static int LAST_NAME = 1;
     private final static int MIDDLE_NAME = 2;
@@ -16,14 +18,25 @@ public class StudentTableModel implements TableModel {
     private final static int ADDRESS = 4;
     private final static int GROUP = 5;
     private static final int COLUMN_COUNT = 6;
+    /**
+     * Columns names
+     */
     private final static String FIRST_NAME_COLUMN = "FIRST NAME";
     private final static String LAST_NAME_COLUMN = "LAST NAME";
     private final static String MIDDLE_NAME_COLUMN = "MIDDLE NAME";
     private final static String DATE_OF_BIRTH_COLUMN = "DATE OF BIRTH";
     private final static String ADDRESS_COLUMN = "ADDRESS";
     private final static String GROUP_COLUMN = "GROUP";
+    /**
+     * List of students (table's content)
+     */
     private List<StudentThrift> students;
 
+    /**
+     * Add content to a table model
+     *
+     * @param students list of students
+     */
     public StudentTableModel(List<StudentThrift> students) {
         this.students = students;
     }
