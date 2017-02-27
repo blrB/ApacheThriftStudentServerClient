@@ -16,8 +16,8 @@ import org.apache.thrift.transport.TTransportException;
 public class StudentServer {
 
     private static Logger logger = Logger.getLogger(StudentServer.class);
-    private static StudentGroupService studentGroupService = new StudentGroupServiceImpl();
-    private static StudentService studentService = new StudentServiceImpl();
+    private static StudentGroupService studentGroupService;
+    private static StudentService studentService;
     private static final int DEFAULT_PORT = 8080;
     private static int port = DEFAULT_PORT;
 
@@ -55,10 +55,16 @@ public class StudentServer {
     }
 
     public static StudentGroupService getStudentGroupService() {
+        if (studentGroupService == null){
+            studentGroupService = new StudentGroupServiceImpl();
+        }
         return studentGroupService;
     }
 
     public static StudentService getStudentService() {
+        if (studentService == null){
+            studentService = new StudentServiceImpl();
+        }
         return studentService;
     }
 
