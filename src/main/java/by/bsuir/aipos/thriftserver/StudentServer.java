@@ -19,13 +19,14 @@ public class StudentServer {
      */
     private static Logger logger = Logger.getLogger(StudentServer.class);
     /**
-     * Student group service
+     * Server runner
+     * @param args the only sent argument is server's port
      */
-    private static StudentGroupService studentGroupService = new StudentGroupServiceImpl();
+    private static StudentGroupService studentGroupService;
     /**
      * Student service
      */
-    private static StudentService studentService = new StudentServiceImpl();
+    private static StudentService studentService;
     /**
      * Constant for default server's port
      */
@@ -34,6 +35,11 @@ public class StudentServer {
      * Initialize port by default value
      */
     private static int port = DEFAULT_PORT;
+
+    public StudentServer() {
+        studentGroupService = new StudentGroupServiceImpl();
+        studentService = new StudentServiceImpl();
+    }
 
     /**
      * Server runner
