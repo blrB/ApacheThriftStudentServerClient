@@ -81,8 +81,15 @@ public class ConverterForStudentThriftAndORMTest {
         StudentGroupService studentGroupService = mock(StudentGroupService.class);
         Mockito.when(StudentServer.getStudentGroupService()).thenReturn(studentGroupService);
         when(studentGroupService.get(anyString())).thenReturn(studentGroup);
-        Student student = ConverterForStudentThriftAndORM.convert(studentThrift);
-        assert (studentThrift.getLastName().equals(student.getLastName()));
+        Student s = ConverterForStudentThriftAndORM.convert(studentThrift);
+        assert (student.getId() == s.getId() &&
+                student.getFirstName().equals(s.getFirstName()) &&
+                student.getLastName().equals(s.getLastName()) &&
+                student.getMiddleName().equals(s.getMiddleName()) &&
+                student.getDateOfBirth().equals(s.getDateOfBirth()) &&
+                student.getHomeAddress().equals(s.getHomeAddress()) &&
+                student.getStudentGroup().getName().equals(s.getStudentGroup().getName())
+        );
     }
 
 }
