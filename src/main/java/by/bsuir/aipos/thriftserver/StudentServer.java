@@ -19,8 +19,7 @@ public class StudentServer {
      */
     private static Logger logger = Logger.getLogger(StudentServer.class);
     /**
-     * Server runner
-     * @param args the only sent argument is server's port
+     * Student group service
      */
     private static StudentGroupService studentGroupService;
     /**
