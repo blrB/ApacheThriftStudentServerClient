@@ -2,6 +2,7 @@ package by.bsuir.aipos.service;
 
 import by.bsuir.aipos.model.Student;
 import by.bsuir.aipos.model.StudentGroup;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -28,14 +31,14 @@ import static org.mockito.Mockito.when;
 
 public class HibernateServiceTest {
 
-    private static StudentService studentService;
-    private static StudentGroupService studentGroupService;
-    private static EntityManager entityManager;
-    private static Student student;
-    private static StudentGroup studentGroup;
+    private StudentService studentService;
+    private StudentGroupService studentGroupService;
+    private EntityManager entityManager;
+    private Student student;
+    private StudentGroup studentGroup;
 
-    @BeforeClass
-    public static void init() throws ParseException {
+    @Before
+    public void init() throws ParseException {
         String dateString = "1996-12-05";
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = format.parse(dateString);
@@ -116,7 +119,7 @@ public class HibernateServiceTest {
     public void getStudentGroup() throws Exception {
         long id = 1;
         when(entityManager.find(StudentGroup.class, id)).thenReturn(studentGroup);
-        StudentGroup stG = studentGroupService.get(1);
+        StudentGroup stG = studentGroupService.get(id);
         verify(entityManager).find(StudentGroup.class, id);
         assert (stG.getId() == studentGroup.getId());
     }
