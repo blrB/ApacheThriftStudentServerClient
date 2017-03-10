@@ -55,5 +55,5 @@ fabric.properties
 
 # End of https://www.gitignore.io/api/intellij
 
-log4j*
+log4j*.log
 target/
